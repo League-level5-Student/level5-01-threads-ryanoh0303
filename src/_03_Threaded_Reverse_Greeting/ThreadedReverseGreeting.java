@@ -25,9 +25,22 @@ public class ThreadedReverseGreeting {
 			 //In the run method of the ThreadedGreeter class, print the message using the member variable as the thread number.
 				//   If the member integer is less than or equal to 50, create a new thread. 
 				//   Pass in a new object of the ThreadedGreeter class with the value of the member variable plus one.
+			
+			System.out.println("Hello from thread number: "+ threadNum);
+			
+			
+			if(threadNum<50) {
+				Thread thread1 =  new Thread();
+				ThreadedGreeter thread = new ThreadedGreeter(threadNum+1);
+				thread.run();
+				thread1.start();
+				try {
+					thread1.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
-			if(threadNum<=50) {
-				new Thread(); //?
 				
 			}
 			
@@ -57,7 +70,8 @@ public class ThreadedReverseGreeting {
 	public static void main(String[] args) {
 		//5. Create the first thread and initialize it with an object of the ThreadedGreeter class.
 		//   The ThreadedGreeter object should be initialized with 1.
-	ThreadedGreeter firstThread = new ThreadedGreeter(0);
+	ThreadedGreeter firstThread = new ThreadedGreeter(1);
+	firstThread.run();
 	//	ThreadedGreeter first = new ThreadedGreeter(1);
 		//System.out.println(first.threadNum);
 		//6. Start and join the thread. Did you get the required output?
