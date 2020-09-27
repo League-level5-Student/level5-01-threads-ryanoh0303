@@ -8,8 +8,10 @@ public class ThreadPool{
 
 	public ThreadPool(int totalThreads) {
 		threads = new Thread[totalThreads]; //?
+		
+		
 		for(int i=0; i<totalThreads; i++) {
-			threads[i] = new Worker();
+			threads[i] = new Thread(new Worker(taskQueue));
 		}
 		
 		
@@ -20,18 +22,32 @@ public class ThreadPool{
 
 
 
-	public Thread addTask(Thread thread1) {
-		return thread1;
+	public void addTask(Task task) {
 		
-		
+		taskQueue.add(task);
 		
 	}
 
 
 
 	public void start() {
+		for(int i=0; i<threads.length; i++) {
+			try {
+				threads[i].join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
+
+
+
+	
+
+
+
+	
 
 
 
