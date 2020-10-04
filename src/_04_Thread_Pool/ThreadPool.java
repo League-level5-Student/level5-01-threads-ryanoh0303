@@ -9,13 +9,13 @@ public class ThreadPool{
 	public ThreadPool(int totalThreads) {
 		threads = new Thread[totalThreads]; //?
 		
-		
+		taskQueue = new ConcurrentLinkedQueue<Task>();
 		for(int i=0; i<totalThreads; i++) {
 			threads[i] = new Thread(new Worker(taskQueue));
 		}
 		
 		
-		taskQueue = new ConcurrentLinkedQueue<Task>();
+		
 		
 		
 	}
@@ -31,7 +31,9 @@ public class ThreadPool{
 
 
 	public void start() {
+		
 		for(int i=0; i<threads.length; i++) {
+			threads[i].start();
 			try {
 				threads[i].join();
 			} catch (InterruptedException e) {

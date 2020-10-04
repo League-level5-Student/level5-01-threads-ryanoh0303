@@ -1,5 +1,7 @@
 package _05_Synchronized_Swimming;
 
+
+
 /*
  * Synchronization is a mechanism which ensures that two concurrent processes (threads)
  * do not simultaneously execute some particular program segment. When one thread wants
@@ -15,8 +17,10 @@ package _05_Synchronized_Swimming;
  */
 public class SynchronizedSwimming {
 	private static final Object swimmingPool = new Object();
+	
 
 	public static void main(String[] args) {
+		
 		Swimmer a = new Swimmer("John");
 		Swimmer b = new Swimmer("Sally");
 		a.start();
@@ -28,9 +32,12 @@ public class SynchronizedSwimming {
 	 * the swimmingPool object until the swimmer has finished their lap.
 	 */
 	private static void swimLap(Swimmer swimmer) throws InterruptedException {
+		synchronized(swimmingPool) {
 		System.out.println(swimmer.name + " started a lap!");
 		Thread.sleep(2000);
+		
 		System.out.println(swimmer.name + " finished!");
+		}
 	}
 
 	public static void takeTurn(Swimmer swimmer) {
